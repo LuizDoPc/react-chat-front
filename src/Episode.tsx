@@ -13,7 +13,7 @@ interface Style {
   width?: string;
 }
 
-const openStyle: Style = { width: '100%', height: '500px' };
+const openStyle: Style = { width: '100%', height: '700px' };
 
 const EpisodeItem: React.FC<EpisodeProps> = ({ episode }) => {
   const [currentStyle, setStyle] = useState<Style>();
@@ -91,14 +91,14 @@ const StyledLink = styled.a`
 
   text-decoration: none;
 
-  color: #000;
+  color: white;
 
   &:hover {
     text-decoration: underline;
   }
 
   &:visited {
-    color: #000;
+    color: white;
   }
 `;
 
@@ -109,7 +109,9 @@ const StyledDateContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid #ccc;
+  color: white;
+  background-color: #22242c;
+  border-bottom-left-radius: 15px;
 `;
 
 const StyledTitleContainer = styled.div`
@@ -118,12 +120,14 @@ const StyledTitleContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
-  border: 2px solid red;
+  background-color: #685bbb;
+  border-top-right-radius: 15px;
 `;
 
 const StyledTitle = styled.div`
   text-align: center;
+  font-weight: bold;
+  color: white;
 `;
 
 const StyledDate = styled.div`

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { getEpisodes, getSingleEpisode, Episode } from './api';
+import { getEpisodes,  Episode } from './api';
 
 import EpisodeItem from './Episode';
 
@@ -40,12 +40,13 @@ const StyledHeader = styled.div`
   margin-bottom: 50px;
   padding-top: 25px;
   padding-bottom: 25px;
-  background-color: red;
+  background-color: #685bbb;
 `;
 
 const StyledTitle = styled.div`
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
+  color: white;
 `;
 
 const StyledBody = styled.div`
