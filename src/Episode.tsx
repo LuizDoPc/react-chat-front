@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 
@@ -8,24 +8,68 @@ interface EpisodeProps {
   episode: Episode;
 }
 
+interface Style {
+  height?: string;
+  width?: string;
+}
+
+const openStyle: Style = { width: '100%', height: '500px' };
+
 const EpisodeItem: React.FC<EpisodeProps> = ({ episode }) => {
+  const [currentStyle, setStyle] = useState<Style>();
+
+  const getContent = () => {
+    if (currentStyle?.width) {
+      return (
+        <>
+          <StyledDescription>
+            {parse(episode.fullDescriptionHtml)}
+          </StyledDescription>
+          <StyledDate
+            onClick={() => {
+              setStyle(undefined);
+            }}
+          >
+            Close
+          </StyledDate>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <StyledDate>{`Streamed in ${episode.date}`}</StyledDate>
+          {episode.recordedVideoUrl && (
+            <StyledLink href={episode.recordedVideoUrl} target="_blank">
+              Watch!
+            </StyledLink>
+          )}
+          <StyledDate
+            onClick={() => {
+              setStyle(openStyle);
+            }}
+          >
+            Learn More
+          </StyledDate>
+        </>
+      );
+    }
+  };
+
   return (
-    <StyledContainer>
+    <StyledContainer style={currentStyle}>
       <StyledTitleContainer>
         <StyledTitle>{episode.shortDescription}</StyledTitle>
       </StyledTitleContainer>
-      <StyledDateContainer>
-        <StyledDate>{`Streamed in ${episode.date}`}</StyledDate>
-        {episode.recordedVideoUrl && (
-          <StyledLink href={episode.recordedVideoUrl} target="_blank">
-            Watch!
-          </StyledLink>
-        )}
-        <StyledDate>Learn More</StyledDate>
-      </StyledDateContainer>
+      <StyledDateContainer>{getContent()}</StyledDateContainer>
     </StyledContainer>
   );
 };
+
+const StyledDescription = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 40px;
+`;
 
 const StyledContainer = styled.div`
   flex: auto;
@@ -82,6 +126,8 @@ const StyledTitle = styled.div`
   text-align: center;
 `;
 
-const StyledDate = styled.div``;
+const StyledDate = styled.div`
+  cursor: pointer;
+`;
 
 export default EpisodeItem;
