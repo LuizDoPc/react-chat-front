@@ -27,7 +27,6 @@ export const getSingleEpisode = async (id: number): Promise<Episode> => {
     headers: { 'Content-Type': 'application/json' }
   });
 
-  console.log(response);
   const data: Episode = await response.json();
 
   return data;
