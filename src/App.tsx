@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-function App() {
+import { getEpisodes, getSingleEpisode, Episode } from './api';
+
+import EpisodeItem from './Episode';
+
+const App: React.FC = () => {
+  const [episodes, setEpisodes] = useState<Episode[]>();
+
+  useEffect(() => {
+    getEpisodes().then((response) => {
+      console.log(response);
+      setEpisodes(response);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledContainer>
+      <StyledHeader>
+        <StyledTitle>ReactChat</StyledTitle>
+      </StyledHeader>
+      <StyledBody>
+        {episodes?.map((episode: Episode) => (
+          <EpisodeItem episode={episode} />
+        ))}
+      </StyledBody>
+    </StyledContainer>
   );
-}
+};
+
+const StyledContainer = styled.div`
+  font-family: Roboto, sans-serif;
+`;
+
+const StyledHeader = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: red;
+`;
+
+const StyledTitle = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const StyledBody = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  margin-left: 8px;
+`;
 
 export default App;
